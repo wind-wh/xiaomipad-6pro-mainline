@@ -1,0 +1,45 @@
+Captured on the test device, 2026-10-31 (Asia/Hong_Kong).
+
+# Ubuntu side: liuqin-switch status
+$ sudo liuqin-switch status
+running slot:     a
+boot_a:           /dev/sde14 (201326592 bytes)
+boot_a holds:     the Ubuntu image from the store [ubuntu]
+store:            /var/lib/liuqin/switch
+store/ubuntu    ok  7a368e58291f974f1cebd1e91e81ce8edc7256a19f75c4baea3fffd883157900
+store/android   ok  2a39502e1b587740c6a643b963de529e0a8a7dc50811553c8817a2c5128bdde4
+{
+  "installed": "android",
+  "partition": "boot_a",
+  "running_slot": "a",
+  "updated": "2026-10-31T13:10:35Z",
+  "boot_sha256": "2a39502e1b587740c6a643b963de529e0a8a7dc50811553c8817a2c5128bdde4"
+}
+
+# Android side
+$ adb shell getprop ro.build.version.release
+15
+$ adb shell getprop ro.build.version.incremental
+OS3.0.7.0.VMYCNXM
+$ adb shell getprop ro.build.fingerprint
+Xiaomi/liuqin/liuqin:15/AQ3A.250226.002/OS3.0.7.0.VMYCNXM:user/release-keys
+$ adb shell uname -r
+5.10.236-android12-9-00003-gfb24cf99ad97-ab14313284
+$ adb shell getprop ro.boot.verifiedbootstate
+orange
+
+# KernelSU manager (v3.3.0, build 32601-2) reports:
+#   status: Working (LKM)
+#   kernel version: 5.10.236-android12-9-00003-gfb24cf99ad97-ab14313284
+#   device: Xiaomi Pad 6 Pro
+#   SELinux: Enforcing, Seccomp: Filter
+
+# Boot image identities
+stock Android boot.img (OS3.0.7.0.VMYCNXM) = 9dd14961ae15aa10d162711d57972c5c62e7af23f2dabc22bac57b24bc185e4b
+KernelSU-patched Android boot image        = 2a39502e1b587740c6a643b963de529e0a8a7dc50811553c8817a2c5128bdde4
+Ubuntu project boot image (upstream v0.6.0) = 7a368e58291f974f1cebd1e91e81ce8edc7256a19f75c4baea3fffd883157900
+
+# Installer plan printed by tools/install_os3070.py (dual layout)
+#   userdata   shrink from 225.0 GiB to 96.0 GiB (type GUID, unique GUID and attributes kept)
+#   linux_root 32.0 GiB  create ext4 LABEL=LIUQIN_ROOT
+#   linux_home 97.0 GiB  create ext4 LABEL=LIUQIN_HOME (mounted at /home)
