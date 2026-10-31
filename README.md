@@ -1,3 +1,11 @@
+> **Fork note - stock ROM ``OS3.0.7.0.VMYCNXM`` integration (community, verified on hardware).**
+> This branch documents running this port on the newer ``OS3.0.7.0.VMYCNXM`` stock ROM
+> instead of the pinned ``OS2.0.6.0.VMYCNXM``, and ships the one changed file
+> (``tools/install_os3070.py``) needed for it. See
+> [docs/OS3.0.7.0-VMYCNXM.md](docs/OS3.0.7.0-VMYCNXM.md) /
+> [中文说明](docs/OS3.0.7.0-VMYCNXM.zh-CN.md).
+> Not upstream-validated; upstream still pins ``OS2.0.6.0.VMYCNXM``.
+
 # Ubuntu for Xiaomi Pad 6 Pro
 
 Run Ubuntu 26.04 on the Xiaomi Pad 6 Pro, with the GNOME desktop and a device-adapted kernel based on upstream Linux. [中文](README.zh-CN.md)
