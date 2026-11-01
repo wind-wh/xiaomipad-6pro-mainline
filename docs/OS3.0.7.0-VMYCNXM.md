@@ -149,3 +149,13 @@ If you try this on another build or capacity variant, please open an issue with:
 * whether the KernelSU manager reports `Working`.
 
 Do not bypass the device, slot or capacity checks; do not write constants by hand.
+
+## Fingerprint TA firmware (added later)
+
+With `OS3.0.7.0.VMYCNXM` the FPC TA provisioning fails because two of the ten
+`fpcliu.*` files differ from the pinned `OS2.0.6.0.VMYCNXM` values. Two
+workarounds were tested on the device: accepting the local OS3.0.7.0 TA by
+updating the firmware manifest (service, sensor and fprintd start; enrolment
+aborted with `pipeline_incomplete=finger_lost_wait`), or restoring the pinned
+OS2.0.6.0 TA from the official `NON-HLOS.bin` (all ten hashes match; used on the
+test unit). See [fingerprint-firmware.md](fingerprint-firmware.md).

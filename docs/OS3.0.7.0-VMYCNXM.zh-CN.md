@@ -116,3 +116,19 @@ KernelSU 管理器显示 **工作中**（LKM 模式，管理器 v3.3.0 / 32601-2
 * 本分支**不分发**小米固件与启动镜像，请自行从小米获取。
 * 恢复：保留解压后的原厂 ROM 与安装器的 `--backup` 目录（分区表、`boot_a`、
   `boot_b`、`persist`）。用 `install.py --restore-partition-table` 加全量线刷即可回到原厂。
+
+## 指纹 TA 固件（补记）
+
+项目把 10 个 FPC TA 文件（`fpcliu.mdt`、`fpcliu.b00`~`b08`）的 SHA256 固定在
+`OS2.0.6.0.VMYCNXM` 上。实测刷 `OS3.0.7.0.VMYCNXM` 后有 2 个文件不同
+（`fpcliu.mdt`、`fpcliu.b08`），服务报
+`stock FPC firmware hash mismatch: fpcliu.mdt`。
+
+两种处理都验证过服务 / 传感器 / fprintd 能起来：
+
+- **A**：把 `firmware/SHA256.json` 改成本机 `modem_a` 的实际值；不需要下载旧 ROM，
+  但属于未验证组合，测试机上录入未完成（`pipeline_incomplete=finger_lost_wait`）；
+- **B**：从官方 OS2.0.6.0 线刷包提取 `NON-HLOS.bin`，把 10 个 `fpcliu.*` 放入固件缓存
+  （哈希与固定值全部一致，即上游验证过的组合；测试机最终采用此方案）。
+
+详见 [fingerprint-firmware.md](fingerprint-firmware.md)。
